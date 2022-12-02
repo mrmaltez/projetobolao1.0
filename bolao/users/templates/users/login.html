@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<script>
+     var GLOBAL_PATH = '{{ STATIC_PATH }}'; 
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+
+    <div class ="caixa-login">
+    <h1>LOGIN</h1>
+    </div>
+    
+    
+    <div class="login-page">
+
+        <div class="form">
+            <form class ="login-form" action="{% url 'login' %}" method="POST"> {% csrf_token %}
+                {% if fl_erro == 1%}
+                <p class ="error">Email ou senha inválidos.</p>
+                {% elif fl_register == 1%}
+                <p class ="success">Usuário registrado com sucesso!</p>
+                {% endif %}
+                <input type ='text' placeholder="Username" name="username" required>
+                <input type ='password' placeholder="Senha" name="password" minlength="4" required>
+                <button>login</button>
+                <p class="message">Ainda não tem conta? <a href="../register">Crie uma agora!</a></p>
+            </form>
+        </div>
+
+    </div>
+    <script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

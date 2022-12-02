@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<script>
+var GLOBAL_PATH = '{{ STATIC_PATH }}'; 
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    
+    <header>
+
+        <h3>BOLÃO DA COPA</h3>
+   <div>
+       <form action="{% url 'jogos' %}" method="POST"> {% csrf_token %}
+       <button name = 'ranking' value = 'ranking'><a>RANKING</a></button>
+       <button name = 'logout' value = 'logout'><a>LOGOUT</a></button>
+       </br>
+       </br>
+       </br>
+       {% if fl_games == 1%}
+        <p style="color:green;">Suas apostas foram enviadas com sucesso!</p>
+        {% endif %}
+        </form>
+    </div> 
+    </header>  
+
+    <form action="{% url 'jogos' %}" method="POST"> {% csrf_token %}
+        <div id="app">
+            
+           
+           
+           
+            <main id="cards">
+            </main>
+
+            <div class="input">
+                <input type ='submit' placeholder="enviar" name = "submit">
+            </div>
+    </form>   
+
+    
+    <script src="{% static 'js/main.js' %}"></script>
+
+    {% for bet in bets %}
+    <script>
+        var gameId = "{{bet.fk_gameId}}".split(":")[1].split('-')[0].replace(/\s/g, '');
+        // var gameId = string(gameId)
+        console.log(`jogo_${gameId}_time_1`)
+        document.getElementById(`jogo_${gameId}_time_1`).value = {{bet.team1_score}};
+        document.getElementById(`jogo_${gameId}_time_2`).value = {{bet.team2_score}};
+    </script>
+    {%endfor%}
+</body>
+</html>
